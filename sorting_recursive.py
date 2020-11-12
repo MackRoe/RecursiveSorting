@@ -82,9 +82,25 @@ def partition(items, low, high):
     TODO: Memory usage: ??? Why and under what conditions?"""
     # TODO: Choose a pivot any way and document your method in docstring above
     pivot = midpoint(items)
+    pivot_value = items[pivot]
     # TODO: Loop through all items in range [low...high]
-    # TODO: Move items less than pivot into front of range [low...p-1]
-    # TODO: Move items greater than pivot into back of range [p+1...high]
+    low_range = range(pivot - 1)
+    high_range = range(pivot +1, len(items))
+    left_pointer = 0
+    right_pointer = len(items)-1
+    for value in range(len(items)):
+        # TODO: Move items less than pivot into front of range [low...p-1]
+        if items[left_pointer] >= pivot_value:
+            prepare_to_swap = True
+        else:
+            left_pointer += 1
+        # TODO: Move items greater than pivot into back of range [p+1...high]
+        if items[right_pointer] <= pivot_value:
+            if prepare_to_swap:
+                items[left_pointer], items[right_pointer] = items[right_pointer], items[left_pointer]
+        else:
+            right_pointer -= 1
+    return pivot
     # TODO: Move pivot item into final position [p] and return index p
 
 
