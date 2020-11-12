@@ -33,8 +33,6 @@ def merge(items1, items2):
     return arr
 
 
-
-
 def split_sort_merge(items):
     """Sort given items by splitting list into two approximately equal halves,
     sorting each with an iterative sorting algorithm, and merging results into
@@ -42,7 +40,9 @@ def split_sort_merge(items):
     TODO: Running time: ??? Why and under what conditions?
     TODO: Memory usage: ??? Why and under what conditions?"""
     # TODO: Split items list into approximately equal halves
+    left, right = split(items)
     # TODO: Sort each half using any other sorting algorithm
+
     # TODO: Merge sorted halves into one list in sorted order
 
 
@@ -64,12 +64,10 @@ def merge_sort(items):
     if len(array) == 1:  # a list of 1 is already sorted
         return array
 
-    # recursive case
-    middle = len(array) // 2
-    # gimmie the left chunk and the right chunk
-    left = array[0:middle + 1]
-    right = array[middle + 1:]
+    # split the array with helper function
+    left, right = split(items)
 
+    # recursive case
     resultleft = merge_sort(left)
     resultright = merge_sort(right)
     return merge(resultleft, resultright)
@@ -83,6 +81,7 @@ def partition(items, low, high):
     TODO: Running time: ??? Why and under what conditions?
     TODO: Memory usage: ??? Why and under what conditions?"""
     # TODO: Choose a pivot any way and document your method in docstring above
+    pivot = midpoint(items)
     # TODO: Loop through all items in range [low...high]
     # TODO: Move items less than pivot into front of range [low...p-1]
     # TODO: Move items greater than pivot into back of range [p+1...high]
@@ -97,5 +96,21 @@ def quick_sort(items, low=None, high=None):
     TODO: Memory usage: ??? Why and under what conditions?"""
     # TODO: Check if high and low range bounds have default values (not given)
     # TODO: Check if list or range is so small it's already sorted (base case)
+    if len(items) <= 1:
+        sorted = True
+        return items
     # TODO: Partition items in-place around a pivot and get index of pivot
     # TODO: Sort each sublist range by recursively calling quick sort
+
+
+def split(array):
+    middle = midpoint(array)
+    # gimmie the left chunk and the right chunk
+    left_arr = left = array[0:middle + 1]
+    right_arr = array[middle + 1:]
+    return left_arr, right_arr
+
+
+def midpoint(array):
+    midpoint = len(array)//2
+    return midpoint
