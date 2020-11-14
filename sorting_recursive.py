@@ -97,14 +97,15 @@ def partition(items, start, end):
     while high_index >= low_index:
         for value in range(len(items)):
             # TODO: Move items less than pivot into front of range [low...p-1]
+            not_ready_to_swap = True
             if items[low_index] >= pivot_value:
-                prepare_to_swap = True
+                not_ready_to_swap = True
             else:
                 low_index += 1
             # Move items greater than pivot into back of range [p+1...high]
             if items[high_index] <= pivot_value:
-                if prepare_to_swap:
-                    items[low_index], items[high_index] = items[low_indexr], items[low_index]
+                if not not_ready_to_swap:
+                    items[low_index], items[high_index] = items[high_index], items[low_index]
             else:
                 high_index -= 1
     items[start], items[high_index] = items[high_index], items[start]
@@ -120,14 +121,16 @@ def quick_sort(items, low=None, high=None):
     TODO: Memory usage: ??? Why and under what conditions?"""
     # TODO: Check if high and low range bounds have default values (not given)
     # TODO: Check if list or range is so small it's already sorted (base case)
+    not_sorted = True
+
     if len(items) <= 1:
-        sorted = True
+        not_sorted = False
         return items
 
     if low >= high:
         return
 
-    while not sorted:
+    while not_sorted:
         # Partition items in-place around a pivot and get index of pivot
         # low and high
         partition_boundary = partition(items, low, high)
@@ -148,3 +151,7 @@ def split(array):
 def midpoint(array):
     midpoint = len(array)//2
     return midpoint
+
+
+some_items = [11, 37, 47, 5, 33, 59, 15, 14, 26, 60, 28, 24]
+print('Results of quick_sort:', quick_sort(some_items, 0, len(some_items) - 1))
