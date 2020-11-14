@@ -42,8 +42,8 @@ def split_sort_merge(items):
     # TODO: Split items list into approximately equal halves
     left, right = split(items)
     # TODO: Sort each half using any other sorting algorithm
-
-    # TODO: Merge sorted halves into one list in sorted order
+    merge_sort(left)
+    merge_sort(right)
 
 
 def merge_sort(items):
@@ -88,18 +88,19 @@ def partition(items, low, high):
     high_range = range(pivot +1, len(items))
     left_pointer = 0
     right_pointer = len(items)-1
-    for value in range(len(items)):
-        # TODO: Move items less than pivot into front of range [low...p-1]
-        if items[left_pointer] >= pivot_value:
-            prepare_to_swap = True
-        else:
-            left_pointer += 1
-        # TODO: Move items greater than pivot into back of range [p+1...high]
-        if items[right_pointer] <= pivot_value:
-            if prepare_to_swap:
-                items[left_pointer], items[right_pointer] = items[right_pointer], items[left_pointer]
-        else:
-            right_pointer -= 1
+    while left_pointer > right_pointer:
+        for value in range(len(items)):
+            # TODO: Move items less than pivot into front of range [low...p-1]
+            if items[left_pointer] >= pivot_value:
+                prepare_to_swap = True
+            else:
+                left_pointer += 1
+            # TODO: Move items greater than pivot into back of range [p+1...high]
+            if items[right_pointer] <= pivot_value:
+                if prepare_to_swap:
+                    items[left_pointer], items[right_pointer] = items[right_pointer], items[left_pointer]
+            else:
+                right_pointer -= 1
     return pivot
     # TODO: Move pivot item into final position [p] and return index p
 
@@ -115,8 +116,15 @@ def quick_sort(items, low=None, high=None):
     if len(items) <= 1:
         sorted = True
         return items
-    # TODO: Partition items in-place around a pivot and get index of pivot
+
+    while not sorted:
+        # TODO: Partition items in-place around a pivot and get index of pivot
+        low = items.min()
+        high = items.max()
+        pivot = partition(items, low, high)
     # TODO: Sort each sublist range by recursively calling quick sort
+    quick_sort(items, low, high)
+    return items
 
 
 def split(array):
