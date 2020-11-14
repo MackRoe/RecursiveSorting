@@ -73,35 +73,42 @@ def merge_sort(items):
     return merge(resultleft, resultright)
 
 
-def partition(items, low, high):
+def partition(items, start, end):
     """Return index `p` after in-place partitioning given items in range
-    `[low...high]` by choosing a pivot (TODO: document your method here) from
+    `[low...high]` by choosing a pivot (midpoint method) from
     that range, moving pivot into index `p`, items less than pivot into range
     `[low...p-1]`, and items greater than pivot into range `[p+1...high]`.
     TODO: Running time: ??? Why and under what conditions?
     TODO: Memory usage: ??? Why and under what conditions?"""
     # TODO: Choose a pivot any way and document your method in docstring above
+    # p is partition boundary
     pivot = midpoint(items)
     pivot_value = items[pivot]
     # TODO: Loop through all items in range [low...high]
-    low_range = range(pivot - 1)
-    high_range = range(pivot +1, len(items))
-    left_pointer = 0
-    right_pointer = len(items)-1
-    while left_pointer > right_pointer:
+    low_index = start + 1
+    high_index = end
+
+    while low_index <= high_index and items[high_index] >= pivot:
+        high_index = high_index - 1
+
+    while low_index <= high_index and items[low_index] <= pivot:
+        low_index = low_index + 1
+
+    while high_index >= low_index:
         for value in range(len(items)):
             # TODO: Move items less than pivot into front of range [low...p-1]
-            if items[left_pointer] >= pivot_value:
+            if items[low_index] >= pivot_value:
                 prepare_to_swap = True
             else:
-                left_pointer += 1
-            # TODO: Move items greater than pivot into back of range [p+1...high]
-            if items[right_pointer] <= pivot_value:
+                low_index += 1
+            # Move items greater than pivot into back of range [p+1...high]
+            if items[high_index] <= pivot_value:
                 if prepare_to_swap:
-                    items[left_pointer], items[right_pointer] = items[right_pointer], items[left_pointer]
+                    items[low_index], items[high_index] = items[low_indexr], items[low_index]
             else:
-                right_pointer -= 1
-    return pivot
+                high_index -= 1
+    items[start], items[high_index] = items[high_index], items[start]
+    return high_index
     # TODO: Move pivot item into final position [p] and return index p
 
 
@@ -117,13 +124,16 @@ def quick_sort(items, low=None, high=None):
         sorted = True
         return items
 
+    if low >= high:
+        return
+
     while not sorted:
-        # TODO: Partition items in-place around a pivot and get index of pivot
-        low = items.min()
-        high = items.max()
-        pivot = partition(items, low, high)
-    # TODO: Sort each sublist range by recursively calling quick sort
-    quick_sort(items, low, high)
+        # Partition items in-place around a pivot and get index of pivot
+        # low and high
+        partition_boundary = partition(items, low, high)
+        # TODO: Sort each sublist range by recursively calling quick sort
+        quick_sort(items, low, high)
+        quick_sort(items, low, high)
     return items
 
 
