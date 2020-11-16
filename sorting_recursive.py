@@ -1,7 +1,7 @@
 #!python
 
 
-def merge(items1, items2):
+def merge(left_arr, right_arr):
     """Merge given lists of items, each assumed to already be in sorted order,
     and return a new list containing all items in sorted order.
     Running time: O(n log(n)) under all conditions (same as merge_sort)
@@ -12,8 +12,6 @@ def merge(items1, items2):
     left_pointer = 0
     right_pointer = 0
     arr = []
-    left_arr = items1
-    right_arr = items2
 
     while left_pointer < len(left_arr) and right_pointer < len(right_arr):
         if left_arr[left_pointer] < right_arr[right_pointer]:
