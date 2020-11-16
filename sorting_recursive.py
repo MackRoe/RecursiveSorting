@@ -141,6 +141,8 @@ def quick_sort(items, low=None, high=None):
 
 
 def split(array):
+    """ Helper function: Splits an array into two arrays of approximately
+    equal lenght """
     middle = midpoint(array)
     # gimmie the left chunk and the right chunk
     left_arr = left = array[0:middle + 1]
@@ -149,8 +151,24 @@ def split(array):
 
 
 def midpoint(array):
+    """ Helper function: Gets midpoint of an array """
     midpoint = len(array)//2
     return midpoint
+
+
+def is_sorted(items):
+    """Helper function: Returns a boolean indicating whether given items are in
+    sorted order.
+         Running time:
+            O(n): All conditions - function contains only one loop"""
+    if items == [] or len(items) == 1:
+        return True
+    for i in range(len(items)-1):
+        if items[i] <= items[i+1]:
+            continue
+        else:
+            return False
+    return True
 
 
 some_items = [11, 37, 47, 5, 33, 59, 15, 14, 26, 60, 28, 24]
