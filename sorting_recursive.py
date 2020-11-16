@@ -120,10 +120,8 @@ def quick_sort(items, low=None, high=None):
     TODO: Memory usage: ??? Why and under what conditions?"""
     # TODO: Check if high and low range bounds have default values (not given)
     # TODO: Check if list or range is so small it's already sorted (base case)
-    not_sorted = True
 
-    if len(items) <= 1:
-        not_sorted = False
+    if not is_sorted(items):
         return items
 
     if low >= high:
