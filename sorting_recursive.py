@@ -127,13 +127,14 @@ def quick_sort(items, low=None, high=None):
     if low >= high:
         return
 
-    while not_sorted:
+    while not is_sorted(items):
         # Partition items in-place around a pivot and get index of pivot
         # low and high
         partition_boundary = partition(items, low, high)
+        p = partition_boundary
         # TODO: Sort each sublist range by recursively calling quick sort
-        quick_sort(items, low, high)
-        quick_sort(items, low, high)
+        quick_sort(items, low, p-1)
+        quick_sort(items, p+1, high)
     return items
 
 
