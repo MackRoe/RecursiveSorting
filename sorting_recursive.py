@@ -12,6 +12,8 @@ def merge(items1, items2):
     left_pointer = 0
     right_pointer = 0
     arr = []
+    left_arr = items1
+    right_arr = items2
 
     while left_pointer < len(left_arr) and right_pointer < len(right_arr):
         if left_arr[left_pointer] < right_arr[right_pointer]:
@@ -30,6 +32,7 @@ def merge(items1, items2):
         arr.append(left_arr[i])
     for i in range(right_pointer, len(right_arr)):
         arr.append(right_arr[i])
+    print('Merged array: ', arr)
     return arr
 
 
@@ -60,7 +63,7 @@ def merge_sort(items):
     pointer2 = 0
 
     # base case
-    if len(array) == 1:  # a list of 1 is already sorted
+    if len(items) == 1:  # a list of 1 is already sorted
         return array
 
     # split the array with helper function
@@ -68,7 +71,9 @@ def merge_sort(items):
 
     # recursive case
     resultleft = merge_sort(left)
+    print('Result left: ', resultleft)
     resultright = merge_sort(right)
+    print('Result right: ', resultright)
     return merge(resultleft, resultright)
 
 
@@ -144,7 +149,9 @@ def split(array):
     middle = midpoint(array)
     # gimmie the left chunk and the right chunk
     left_arr = left = array[0:middle + 1]
+    print('Left array: ', left_arr)
     right_arr = array[middle + 1:]
+    print('Right array: ', right_arr)
     return left_arr, right_arr
 
 
